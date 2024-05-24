@@ -1,0 +1,155 @@
+{% load static %}
+
+{% if user.is_authenticated %}
+
+    {% if user.abonnement.payer == True %}
+
+        <!DOCTYPE html>
+        <html lang="en">
+        <head>
+            <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <title>Educa - Accueil</title>
+            <link rel="stylesheet" href="{% static 'css/cours_css.css' %}">
+            <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+        </head>
+        <body>
+            <nav class="navbar">
+                <a href="{% url 'APP1:acceuil' %}" class="logo-link"><img src="{% static 'educa.png' %}" alt="Educa Logo" class="logo"></a>
+                <div class="container">
+                    <input type="text" class="input" id="searchInput" placeholder="Search..." />
+                </div>
+                <ul class="nav-links">
+                    <li><a href="{% url 'APP1:acceuil' %}">Home</a></li>
+                    <li><a href="{% url 'logout'%}">deconnexion</a></li>
+                    <li>{{user.username}} connecté</li>
+                </ul>
+            </nav>
+
+            <div class="courses">
+                {% for matiere in matieres %}
+                <div class="nom">
+                    <h2>{{ matiere }}</h2>
+                </div>
+                <div class="matiere-container" id="{{ matiere }}">
+                    {% for post in posts %}
+                        {% if post.matiere == matiere %}
+                            <div class="cours-card">
+                                <img src="{% static 'stock-photo-yellow-folder-on-a-white-background.jpeg' %}" class="cours-image">
+                                <div class="cours-info">
+                                    <h3 class="cours-name"><a href="{% url 'APP1:telecharger_cours' post.id %}">{{ post.titre }}</a></h3>
+                                    <p class="cours-auteur"> AUTEUR : {{ post.prof }}</p>
+                                </div>
+                            </div>
+                        {% endif %}
+                    {% endfor %}
+                </div>
+                {% endfor %}
+            </div>
+
+            <footer class="footer">
+                <div class="lien">
+                    <p>Partenaires universitaires :</p>
+                    <ul>
+                        <li><a href="#">Université NORBERT ZONGO</a></li>
+                        <li><a href="#">Université NAZI BONI</a></li>
+                        <li><a href="#">Université JOSEPH KY ZERBO</a></li>
+                    </ul>
+                    <p>Suivez-nous :</p>
+                    <ul class="social-media">
+                        <li><a href="https://www.facebook.com">Facebook</a></li>
+                        <li><a href="https://www.twitter.com">Twitter</a></li>
+                        <li><a href="https://www.instagram.com">Instagram</a></li>
+                        <li><a href="https://www.linkedin.com">LinkedIn</a></li>
+                    </ul>
+                </div>
+                <p>&copy; 2024 Educa. Tous droits réservés.</p>
+            </footer>
+
+            <script>
+                const searchInput = document.getElementById("searchInput");
+                const matiereHeaders = document.querySelectorAll('.nom h2');
+                const matieres = document.querySelectorAll('.matiere-container');
+
+                searchInput.addEventListener("input", () => {
+                    const searchValue = searchInput.value.toLowerCase();
+                    matiereHeaders.forEach((header, index) => {
+                        const matiereContainer = matieres[index];
+                        const matiereName = header.textContent.toLowerCase();
+                        if (matiereName.includes(searchValue)) {
+                            header.parentElement.style.display = 'block';
+                            matiereContainer.style.display = 'flex';
+                        } else {
+                            header.parentElement.style.display = 'none';
+                            matiereContainer.style.display = 'none';
+                        }
+                    });
+                });
+            </script>
+        </body>
+        </html>
+
+    {% else %}
+
+        <!DOCTYPE html>
+        <html lang="en">
+        <head>
+            <meta charset="UTF-8">
+            <title>ACCEUIL</title>
+            <link rel="stylesheet" href="{% static 'css/pop_up.css' %}">
+        </head>
+        <body>
+
+            <div class="container">
+                 {% csrf_token %}
+                <section class="content with-margin">
+                    Merci de vous être connecté. Pour avoir accès aux cours, vous devez effectuer un paiement de 100f comme abonnement. <br>
+                    Voici vos informations ci-dessous. Cliquez sur "s'abonner" pour démarrer le processus d'abonnement.
+
+                    <form action="{% url 'APP1:paiement' %}" method="post">
+                         {% csrf_token %}
+                        <!-- Champ de texte pour le nom -->
+                        <label for="nom">Nom:</label><br>
+                        <input type="text" id="nom" name="nom" value="{{user.first_name}}" readonly required><br><br>
+
+                        <!-- Champ de texte pour le prénom -->
+                        <label for="prenom">Prénom:</label><br>
+                        <input type="text" id="prenom" name="prenom" value="{{user.last_name}}" readonly required><br><br>
+
+                        <!-- Champ de texte pour le mail-->
+                        <label for="email">Email:</label><br>
+                        <input type="email" id="email" name="email" value="{{user.email}}" readonly required><br><br>
+
+                        <!-- Bouton de soumission -->
+                        <input type="submit" value="S'abonner">
+                    </form>
+                </section>
+            </div>
+        </body>
+        </html>
+
+    {% endif %}
+
+{% else %}
+
+    {% load static %}
+
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>ACCEUIL</title>
+        <link rel="stylesheet" href="{% static 'css/pop_up.css' %}">
+    </head>
+    <body>
+        <div class="container">
+            <section class="content with-margin">
+                Vous devez vous connecter ou avoir un compte afin d'avoir accès aux cours. <br>
+                <a href="{% url 'login' %}" >Se connecter</a>
+                <a href="{% url 'register' %}" >S'inscrire</a>
+            </section>
+        </div>
+    </body>
+    </html>
+
+{% endif %}

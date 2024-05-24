@@ -1,0 +1,44 @@
+ {% load static %}
+
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Educa - Accueil</title>
+    <link rel="stylesheet" href="{% static 'css/style1.css' %}">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <nav class="navbar">
+        <a href="{% url 'APP1:acceuil' %}" class="logo-link"><img src="{% static 'educa.png' %}" alt="Educa Logo" class="logo"></a>
+        <ul class="nav-links">
+            <li><a href="{% url 'APP1:acceuil' %}">Home</a></li>
+            <li><a href="{% url 'APP1:cours' %}">Cours</a></li>
+            <li><a href="{% url 'login' %}"> se_connecter</a></li>
+            <li><a href="{% url 'register' %}">s'incrire</a></li>
+        </ul>
+    </nav>
+
+
+
+<div style="position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: white;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">
+  <form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <input type="submit" value="s'inscrire">
+  </form>
+ </div>
+
+
+
+</body>
+</html>

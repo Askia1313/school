@@ -1,0 +1,21 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>ACCEUIL</title>
+    <link rel="stylesheet" href="{% static 'css/affiche_css.css' %}">
+</head>
+<body>
+
+<div class="container">
+    <section class="content with-margin">
+
+      <a href="{% url 'APP1:cours' %}" class="btn">Voir les cours</a>
+
+        <a href="{% url 'APP1:admin:index' %}" class="btn">Administration</a>
+    </section>
+</div>
+</body>
+</html>

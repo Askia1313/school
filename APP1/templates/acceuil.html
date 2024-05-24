@@ -1,0 +1,63 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Educa - Accueil</title>
+    <link rel="stylesheet" href="{% static 'css/style1.css' %}">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <nav class="navbar">
+        <a href="{% url 'APP1:acceuil' %}" class="logo-link"><img src="{% static 'educa.png' %}" alt="Educa Logo" class="logo"></a>
+        <ul class="nav-links">
+            <li><a href="{% url 'APP1:acceuil' %}">Home</a></li>
+            <li><a href="{% url 'APP1:cours' %}">Cours</a></li>
+            <li><a href="{% url 'login' %}"> se_connecter</a></li>
+            <li><a href="{% url 'register' %}">s'incrire</a></li>
+        </ul>
+    </nav>
+    <section class="content">
+        <div class="text">
+            <p class="welcome">Bienvenue sur Educa</p>
+            <p>
+                Bienvenue sur Educa, votre destination privilégiée pour une expérience d'apprentissage enrichissante et innovante. Nous sommes ravis de vous accueillir dans notre communauté dédiée à l'éducation de qualité et à la croissance personnelle.Nous offrons:
+            </p>
+            <ul>
+                <li>Cours en ligne diversifiés</li>
+                <li>Contenus interactifs</li>
+                <li>Communauté active</li>
+                <li>Support personnalisé</li>
+            </ul>
+            <p>
+                Rejoignez-nous dès aujourd'hui et prenez part à une aventure éducative exceptionnelle.
+
+                Inscrivez vous dés maintenant pour profiter d'un diversié de cours aussi riche que varier
+            </p>
+        </div>
+        <div class="image">
+            <img src="{% static 'course-2-7.jpg' %}" alt="Educa Image">
+        </div>
+    </section>
+    <footer class="footer">
+
+        <div class="lien">
+            <p>Partenaires universitaires :</p>
+            <ul>
+                <li><a href="#">Université NORBERT ZONGO</a></li>
+                <li><a href="#">Université NAZI BONI</a></li>
+                <li><a href="#">Université JOSEPH KY ZERBO</a></li>
+            </ul>
+            <p>Suivez-nous :</p>
+            <ul class="social-media">
+                <li><a href="https://www.facebook.com">Facebook</a></li>
+                <li><a href="https://www.twitter.com">Twitter</a></li>
+                <li><a href="https://www.instagram.com">Instagram</a></li>
+                <li><a href="https://www.linkedin.com">LinkedIn</a></li>
+            </ul>
+        </div>
+        <p>&copy; 2024 Educa. Tous droits réservés.</p>
+    </footer>
+</body>
+</html>
